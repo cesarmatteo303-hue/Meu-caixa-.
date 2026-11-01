@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071b32">
+  <title>Bandeira do Brasil — Estados e estrelas</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #071b32;
+      color: #f5f8fc;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      padding: 32px 20px;
+      background:
+        radial-gradient(ellipse at 50% 40%, rgb(21 57 88 / 70%), transparent 58%),
+        #071b32;
+    }
+
+    main {
+      width: min(100%, 900px);
+      text-align: center;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: #87a7c7;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      letter-spacing: -0.045em;
+    }
+
+    .subtitle {
+      margin: 12px auto 30px;
+      color: #b5c5d6;
+      line-height: 1.6;
+    }
+
+    .flag-frame {
+      position: relative;
+      width: min(100%, 760px);
+      margin: 0 auto;
+      border: 1px solid rgb(255 255 255 / 12%);
+      border-radius: 18px;
+      background: rgb(255 255 255 / 4%);
+      padding: clamp(12px, 3vw, 26px);
+      box-shadow: 0 28px 80px rgb(0 0 0 / 28%);
+    }
+
+    .flag {
+      display: block;
+      width: 100%;
+      height: auto;
+      overflow: visible;
+      filter: drop-shadow(0 10px 18px rgb(0 0 0 / 20%));
+    }
+
+    .star {
+      cursor: help;
+      outline: none;
+    }
+
+    .star use {
+      fill: #fff;
+      stroke: rgb(255 255 255 / 30%);
+      stroke-width: 1;
+      vector-effect: non-scaling-stroke;
+      transition: fill 150ms ease, filter 150ms ease, transform 150ms ease;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    .star:hover use,
+    .star:focus-visible use {
+      fill: #fff3a6;
+      filter: drop-shadow(0 0 7px rgb(255 243 166 / 95%));
+      transform: scale(1.3);
+    }
+
+    @keyframes twinkle-3d {
+      0%, 100% {
+        fill: #fff;
+        filter: drop-shadow(0 0 1px rgb(255 255 255 / 60%));
+        transform: perspective(40px) rotateY(0deg) scale(1);
+      }
+      25% {
+        fill: #fff3a6;
+        filter: drop-shadow(0 0 6px rgb(255 243 166 / 100%));
+        transform: perspective(40px) rotateY(90deg) scale(1.5);
+      }
+      50% {
+        fill: #fff;
+        filter: drop-shadow(0 0 9px rgb(255 255 255 / 100%));
+        transform: perspective(40px) rotateY(180deg) scale(1.8);
+      }
+      75% {
+        fill: #ffe45c;
+        filter: drop-shadow(0 0 6px rgb(255 228 92 / 100%));
+        transform: perspective(40px) rotateY(270deg) scale(1.5);
+      }
+    }
+
+    .flag.anthem-playing .star use {
+      animation: twinkle-3d 1.4s ease-in-out infinite;
+      animation-delay: calc(var(--i) * -0.17s);
+    }
+
+    #motto {
+      cursor: pointer;
+      outline: none;
+    }
+
+    #motto text {
+      transition: fill 150ms ease;
+    }
+
+    #motto:hover text,
+    #motto:focus-visible text,
+    #motto.playing text {
+      fill: #006b27;
+    }
+
+    #tooltip {
+      position: fixed;
+      z-index: 2;
+      display: none;
+      pointer-events: none;
+      padding: 9px 13px;
+      border: 1px solid rgb(255 255 255 / 18%);
+      border-radius: 9px;
+      background: #061326;
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 700;
+      box-shadow: 0 8px 24px rgb(0 0 0 / 35%);
+      transform: translate(-50%, calc(-100% - 12px));
+    }
+
+    #tooltip.visible {
+      display: block;
+    }
+
+    .hint {
+      margin: 20px 0 0;
+      color: #87a7c7;
+      font-size: 0.9rem;
+    }
+
+    .hint span {
+      color: #e4c344;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">Símbolo nacional</p>
+    <h1>Bandeira do Brasil</h1>
+    <p class="subtitle">Passe o mouse ou navegue com o teclado pelas estrelas para descobrir o estado que cada uma representa.</p>
+
+    <div class="flag-frame">
+      <svg class="flag" viewBox="0 0 700 490" role="img" aria-labelledby="flag-title flag-description">
+        <title id="flag-title">Bandeira do Brasil</title>
+        <desc id="flag-description">Bandeira verde com losango amarelo, esfera azul, faixa branca e 27 estrelas interativas que representam os 26 estados e o Distrito Federal.</desc>
+        <defs>
+          <path id="star-shape" d="M 0,-10 L 2.25,-3.1 L 9.5,-3.1 L 3.65,1.15 L 5.9,8.1 L 0,3.8 L -5.9,8.1 L -3.65,1.15 L -9.5,-3.1 L -2.25,-3.1 Z"/>
+          <clipPath id="globe-clip">
+            <circle cx="350" cy="245" r="127"/>
+          </clipPath>
+        </defs>
+
+        <rect width="700" height="490" rx="3" fill="#009739"/>
+        <path d="M 350,25 L 680,245 L 350,465 L 20,245 Z" fill="#ffdf00"/>
+        <circle cx="350" cy="245" r="127" fill="#002776"/>
+        <g clip-path="url(#globe-clip)">
+          <path d="M 204,244 Q 350,190 496,244 L 496,282 Q 350,228 204,282 Z" fill="#fff"/>
+        </g>
+        <path id="motto-path" d="M 204,263 Q 350,209 496,263" fill="none"/>
+        <g id="motto" tabindex="0" role="button" aria-label="Ordem e Progresso — tocar o Hino Nacional" clip-path="url(#globe-clip)">
+          <path d="M 204,244 Q 350,190 496,244 L 496,282 Q 350,228 204,282 Z" fill="transparent"/>
+          <text fill="#009739" font-size="15" font-weight="800" letter-spacing="1.25" text-anchor="middle" dy="5.5">
+            <textPath href="#motto-path" startOffset="50%">ORDEM E PROGRESSO</textPath>
+          </text>
+        </g>
+
+        <g transform="translate(350 245) scale(.7 .65) translate(-350 -245)">
+        <g class="star" tabindex="0" role="img" aria-label="Acre" data-state="Acre" transform="translate(266 218) scale(.8)"><use href="#star-shape"/></g>
+        <g class="star" tabindex="0" role="img" aria-label="Alagoas" data-state="Alagoas" transform="translate(456 277) scale(.65)"><use href="#star-shape"/></g>
+        <g class="star" tabindex="0" role="img" aria-label="Amapá" data-state="Amapá" transform="translate(405 197) scale(.75)"><use href="#star-shape"/></g>
+        <g class="star" tabindex="0" role="img" aria-label="Amazonas" data-state="Amazonas" transform="translate(286 175) scale(.9)"><use href="#star-shape"/></g>
+        <g class="star" tabindex="0" role="img" aria-label="Bahia" data-state="Bahia" transform="translate(430 285) scale(.95)"><use href="#star-shape"/></g>
+        <g class="star" tabindex="0" role="img" aria-label="Ceará" data-state="Ceará" transform="translate(438 226) scale(.75)"><use href="#star-shape"/></g>
+        <g class="star" tabindex="0" role="img" aria-label="Distrito Federal" data-state="Distrito Federal" transform="translate(362 320) scale(.55)"><use href="#star-shape"/></g>
+        <g class="star" tabindex="0" role="img" aria-label="Espírito Santo" data-state="Espírito Santo" transform="translate(425 359) scale(.75)"><use href="#star-shape"/></g>
+        <g class="star" tabindex="0" role="img" aria-label="Goiás" data-state="Goiás" transform="translate(376 337) scale(.8)"><use href="#star-shape"/></g>
+        <g class="star" tabindex="0" role="img" aria-label="Maranhão" data-state="Maranhão" transform="translate(414 210) scale(.75)"><use href="#star-shape"/></g>
+        <g class="star" tabindex="0" role="img" aria-label="Mato Grosso" data-state="Mato Grosso" transform="translate(323 307) scale(.95)"><use href="#star-shape"/></g>
+        <g class="star" tabindex="0" role="img" aria-label="Mato Grosso do Sul" data-state="Mato Grosso do Sul" transform="translate(347 373) scale(.85)"><use href="#star-shape"/></g>
+        <g class="star" tabindex="0" role="img" aria-label="Minas Gerais" data-state="Minas Gerais" transform="translate(401 341) scale(.9)"><use href="#star-shape"/></g>
+        <g class="star" tabindex="0" role="img" aria-label="Pará" data-state="Pará" transform="translate(350 78) scale(1.15)"><use href="#star-shape"/></g>
+        <g class="star" tabindex="0" role="img" aria-label="Paraíba" data-state="Paraíba" transform="translate(455 239) scale(.65)"><use href="#star-shape"/></g>
+        <g class="star" tabindex="0" role="img" aria-label="Paraná" data-state="Paraná" transform="translate(379 395) scale(.85)"><use href="#star-shape"/></g>
+        <g class="star" tabindex="0" role="img" aria-label="Pernambuco" data-state="Pernambuco" transform="translate(450 255) scale(.75)"><use href="#star-shape"/></g>
+        <g class="star" tabindex="0" role="img" aria-label="Piauí" data-state="Piauí" transform="translate(420 244) scale(.75)"><use href="#star-shape"/></g>
+        <g class="star" tabindex="0" role="img" aria-label="Rio de Janeiro" data-state="Rio de Janeiro" transform="translate(409 382) scale(.7)"><use href="#star-shape"/></g>
+        <g class="star" tabindex="0" role="img" aria-label="Rio Grande do Norte" data-state="Rio Grande do Norte" transform="translate(460 219) scale(.6)"><use href="#star-shape"/></g>
+        <g class="star" tabindex="0" role="img" aria-label="Rio Grande do Sul" data-state="Rio Grande do Sul" transform="translate(370 432) scale(.95)"><use href="#star-shape"/></g>
+        <g class="star" tabindex="0" role="img" aria-label="Rondônia" data-state="Rondônia" transform="translate(314 244) scale(.75)"><use href="#star-shape"/></g>
+        <g class="star" tabindex="0" role="img" aria-label="Roraima" data-state="Roraima" transform="translate(319 142) scale(.7)"><use href="#star-shape"/></g>
+        <g class="star" tabindex="0" role="img" aria-label="Santa Catarina" data-state="Santa Catarina" transform="translate(391 412) scale(.75)"><use href="#star-shape"/></g>
+        <g class="star" tabindex="0" role="img" aria-label="São Paulo" data-state="São Paulo" transform="translate(385 374) scale(1)"><use href="#star-shape"/></g>
+        <g class="star" tabindex="0" role="img" aria-label="Sergipe" data-state="Sergipe" transform="translate(441 295) scale(.6)"><use href="#star-shape"/></g>
+        <g class="star" tabindex="0" role="img" aria-label="Tocantins" data-state="Tocantins" transform="translate(396 263) scale(.8)"><use href="#star-shape"/></g>
+        </g>
+      </svg>
+    </div>
+    <p class="hint"><span>27 estrelas</span> · 26 estados e Distrito Federal · passe o mouse em “Ordem e Progresso” para ouvir o Hino Nacional</p>
+    <audio id="anthem" src="hino-nacional.ogg" preload="none" loop></audio>
+    <div id="tooltip" role="status" aria-live="polite"></div>
+  </main>
+
+  <script>
+    const tooltip = document.querySelector("#tooltip");
+    const stars = document.querySelectorAll(".star");
+
+    function showState(star, x, y) {
+      tooltip.textContent = star.dataset.state;
+      tooltip.style.left = `${x}px`;
+      tooltip.style.top = `${y}px`;
+      tooltip.classList.add("visible");
+    }
+
+    function hideState() {
+      tooltip.classList.remove("visible");
+    }
+
+    const motto = document.querySelector("#motto");
+    const anthem = document.querySelector("#anthem");
+    const flag = document.querySelector(".flag");
+
+    stars.forEach((star, index) => star.style.setProperty("--i", index));
+    anthem.addEventListener("playing", () => flag.classList.add("anthem-playing"));
+    anthem.addEventListener("pause", () => flag.classList.remove("anthem-playing"));
+    anthem.addEventListener("ended", () => flag.classList.remove("anthem-playing"));
+    let overMotto = false;
+
+    function playAnthem() {
+      anthem.play().then(() => motto.classList.add("playing")).catch(() => {});
+    }
+
+    function stopAnthem() {
+      anthem.pause();
+      anthem.currentTime = 0;
+      motto.classList.remove("playing");
+    }
+
+    motto.addEventListener("pointerenter", () => {
+      overMotto = true;
+      playAnthem();
+    });
+    motto.addEventListener("pointerleave", () => {
+      overMotto = false;
+      stopAnthem();
+    });
+    motto.addEventListener("focus", playAnthem);
+    motto.addEventListener("blur", stopAnthem);
+
+    // Navegadores só liberam áudio após um clique ou tecla; se o hover foi bloqueado, o primeiro clique toca.
+    document.addEventListener("pointerdown", () => {
+      if (overMotto && anthem.paused) playAnthem();
+    });
+
+    stars.forEach((star) => {
+      star.addEventListener("pointerenter", (event) => {
+        showState(star, event.clientX, event.clientY);
+      });
+      star.addEventListener("pointermove", (event) => {
+        showState(star, event.clientX, event.clientY);
+      });
+      star.addEventListener("pointerleave", hideState);
+      star.addEventListener("focus", () => {
+        const bounds = star.getBoundingClientRect();
+        showState(star, bounds.left + bounds.width / 2, bounds.top);
+      });
+      star.addEventListener("blur", hideState);
+    });
+  </script>
+</body>
+</html>
