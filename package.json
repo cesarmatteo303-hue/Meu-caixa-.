@@ -1,0 +1,11 @@
+{
+  "name": "bandeira-brasil-interativa",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Página interativa sobre as estrelas da bandeira do Brasil",
+  "main": "servidor.js",
+  "scripts": {
+    "start": "node servidor.js",
+    "dev": "node --watch servidor.js"
+  }
+}

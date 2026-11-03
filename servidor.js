@@ -8,6 +8,8 @@ const files = {
   "/hino-nacional.ogg": { name: "hino-nacional.ogg", type: "audio/ogg" },
 };
 
+const port = Number(process.env.PORT || 8123);
+
 http.createServer((req, res) => {
   if (req.method !== "GET" && req.method !== "HEAD") {
     res.writeHead(405, { Allow: "GET, HEAD" });
@@ -34,4 +36,4 @@ http.createServer((req, res) => {
     });
     res.end(req.method === "HEAD" ? undefined : data);
   });
-}).listen(8123, () => console.log("Abra http://localhost:8123"));
+}).listen(port, () => console.log(`Abra http://localhost:${port}`));
